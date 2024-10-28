@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: dev
+  labels:
+    app: jenkins-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-app
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: jenkins-app
+        tier: frontend
+    spec:
+      containers:
+        - name: jenkinscontainer
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080 # Jenkins web interface
+            - containerPort: 50000 # Jenkins agent communication
+          resources:
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}

@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pumejdeployment
+  namespace: dev
+  labels:
+    app: pumejwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pumejwebapp
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: pumejwebapp
+        tier: frontend
+    spec:
+      containers:
+        - name: pumejcontainer
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+---
+#deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pumejdeployment
+  namespace: prod
+  labels:
+    app: pumejwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pumejwebapp
+      tier: frontend
+  #pod tempalte
+  template:
+    metadata:
+      labels:
+        app: pumejwebapp
+        tier: frontend
+    spec: # Pod spec
+      containers:
+        - name: pumejcontainer
+          #https://hub.docker.com/_/nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"            
+---
+#deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pumejdeployment
+  namespace: qa
+  labels:
+    app: pumejwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pumejwebapp
+      tier: frontend
+  #pod tempalte
+  template:
+    metadata:
+      labels:
+        app: pumejwebapp
+        tier: frontend
+    spec: # Pod spec
+      containers:
+        - name: pumejcontainer
+          #https://hub.docker.com/_/nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"

@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pumejwebapp
+  namespace: dev
+  labels:
+    app: pumejwebapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: nginx
+  selector:
+    app: pumejwebapp
+    tier: frontend
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pumejwebapp
+  namespace: prod
+  labels:
+    app: pumejwebapp
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      name: nginx
+  selector:
+    app: pumejwebapp
+    tier: frontend
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pumejwebapp
+  namespace: qa
+  labels:
+    app: pumejwebapp
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      name: nginx
+  selector:
+    app: pumejwebapp
+    tier: frontend
+  type: NodePort

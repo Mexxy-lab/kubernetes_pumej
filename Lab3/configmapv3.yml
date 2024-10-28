@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configv3
+  namespace: dev
+  labels:
+    app: mywebapp
+data:
+  index.html: |
+    <html>
+    <body>
+    <h1>Hello World. Version: 3. Name is Emeka Umejiofor, Looking for a Job</h1>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-configv3
+  namespace: prod
+  labels:
+    app: mywebapp
+data:
+  index.html: |
+    <html>
+    <body>
+    <h1>Hello World. Version: 3. Name is Emeka Umejiofor, looking for a Job</h1>
+    </body>
+    </html>
