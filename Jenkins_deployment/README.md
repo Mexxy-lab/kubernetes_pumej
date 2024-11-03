@@ -1,4 +1,4 @@
-# Deploying an Application to Kubernetes
+# Deploying an Application to Kubernetes - Jenkins application
 
 # Start with a Fresh Minikube cluster
 
@@ -11,24 +11,22 @@ minikube start
 
 # Deploying the Application
 
-The solution is is in the solution1 folder. Try filling out the deployment, namespaces and services.yml files in the manifests folder. You can use the solution1 folder as a reference. If you run into problems you can always just copy over the files from the solution1 folder.
-
 1. Start with creating the namespaces first.  This will create the namespaces for the application. Namespaces need to be created first because the other resources will be created in the namespaces.
 
 ```
-kubectl apply -f ./manifests/namespaces.yml
+kubectl apply -f ./Jenkins_deployment/namspace.yaml
 ```
 
 2. Now start filling out the deployment.yml file. Once complete run the command:
 
 ```
-kubectl apply -f ./manifests/deployment.yml
+kubectl apply -f ./Jenkins_deployment/deployment.yaml
 ```
 
 3. Once the deployment is created, create the service.
 
 ```
-kubectl apply -f ./manifests/services.yml
+kubectl apply -f ./Jenkins_deployment/service_jenkins.yaml
 ```
 
 4. Check out the resources you have created
@@ -46,7 +44,13 @@ minikube service --all -n dev
 6. Want to make changes to any of the manifests and apply them all?
 
 ```
-kubectl apply -f ./manifests/
+kubectl apply -f ./Jenkins_deployment/
+```
+
+7. Used to retrieve the jenkins password from pods. 
+
+```
+kubectl exec -it jenkins-deployment-76d7987ddc-tvw9x -n dev -- cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 The above command will apply ALL the manifests in the manifests folder.

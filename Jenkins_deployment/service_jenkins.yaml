@@ -15,3 +15,42 @@ spec:
   selector:
     app: jenkins-app
     tier: frontend
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: prod
+  labels:
+    app: jenkins-app
+spec:
+  type: NodePort # Expose on a NodePort for Minikube access
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001 # Access on <minikube_ip>:30000
+      name: jenkins
+  selector:
+    app: jenkins-app
+    tier: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: qa
+  labels:
+    app: jenkins-app
+spec:
+  type: NodePort # Expose on a NodePort for Minikube access
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30002 # Access on <minikube_ip>:30000
+      name: jenkins
+  selector:
+    app: jenkins-app
+    tier: frontend
