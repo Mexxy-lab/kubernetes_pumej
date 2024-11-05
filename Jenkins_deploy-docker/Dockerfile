@@ -29,3 +29,5 @@ EXPOSE 50000
 # Run Jenkins
 CMD ["java", "-jar", "/usr/share/jenkins/jenkins.war"]
 
+# Run the container using below command from cli 
+# docker run -d -p 8090:8080 -p 50000:50000 --name my-jenkins custom-jenkins
